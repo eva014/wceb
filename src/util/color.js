@@ -1,0 +1,2 @@
+export const MAIN_BACKGROUNDCOLOR='#010E21'
+export const MAIN_BORDERCOLOR='#0D62A1'
