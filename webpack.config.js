@@ -3,7 +3,7 @@ const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const pxtorem = require('postcss-pxtorem');
-
+require('babel-polyfill')
 const Visualizer = require('webpack-visualizer-plugin'); // remove it in production environment.
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; // remove it in production environment.
 const otherPlugins = process.argv[1].indexOf('webpack-dev-server') >= 0 ? [] : [
@@ -31,7 +31,7 @@ module.exports = {
         disableHostCheck: true
     },
 
-    entry: {"index": path.resolve(__dirname, 'src/index')},
+    entry: {"index": ['babel-polyfill',path.resolve(__dirname, 'src/index')]},
 
     output: {
         filename: '[name].js',
@@ -90,17 +90,11 @@ module.exports = {
     },
     plugins: [
         new webpack.optimize.ModuleConcatenationPlugin(),
-        // new webpack.optimize.CommonsChunkPlugin('shared.js'),
         new webpack.optimize.CommonsChunkPlugin({
             // minChunks: 2,
             name: 'shared',
             filename: 'shared.js'
         }),
-        // new webpack
-        // new webpack.DefinePlugin({
-        //     // __URLMobile__: '"http://l.laobai.com:9998"',
-        //     // __URLServer__:'"http://core-test.laobai.com"',
-        // }),
         new ExtractTextPlugin({filename: '[name].css', allChunks: true}),
         // ...otherPlugins
     ]
