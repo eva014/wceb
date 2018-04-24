@@ -3,11 +3,12 @@
  */
 import React from 'react'
 import {MAIN_BORDERCOLOR} from "../../../../util/color";
-import {FlexContainer} from "../../../../common/FlexContainer/index";
+import FlexContainer from "../../../../common/FlexContainer/index";
 import {Icon} from "antd-mobile";
-import Header from "./Header";
+import Header from "./MatchHeader";
 import {placeBet} from "../../../../util/contract/action";
 import KToast from "../../../../common/KToast";
+import BigNumber from 'bignumber.js'
 
 class PlaceBet extends React.Component {
     betDefaults=[`0.01`,`0.05`,`0.1`,`0.5`,`1`,`2`,`5`,`10`];
@@ -19,11 +20,11 @@ class PlaceBet extends React.Component {
     payerBet=()=>{
         const {match,hideClick,bet}=this.props;
         const {inputValue}=this.state;
-        const {matchId}=match;
-        const {betId}=bet;
-        if(matchId&&betId&&inputValue){
+        const {matchId,address}=match;
+        const {betId,optionId}=bet;
+        if(inputValue){
             KToast.loading();
-            placeBet(matchId,betId,inputValue).then(result=>{
+            placeBet(match,bet,inputValue).then(result=>{
                 if(result){
                    KToast.success('',2,()=>{
                        location.reload()
@@ -84,6 +85,7 @@ class PlaceBet extends React.Component {
     render() {
         const {match,bet,hideClick}=this.props;
         const {selectedIndex}=this.state;
+        const {serviceFee,mode}=match;
         const {returnRate,name}=bet;
         return (
             <div style={{
@@ -104,7 +106,7 @@ class PlaceBet extends React.Component {
                 <div style={{width: '100%', borderTop: '1px solid #4C5B70'}}>
                     <FlexContainer justify='center' direction='column' style={{padding: '0 10px'}}>
                         <div style={{width: '100%', borderBottom: '1px solid #4C5B70', padding: '20px 0', fontSize: 16}}>
-                            {`你正在 `}<span style={{color: 'yellow'}}>投注</span>{`: 比分为 ${name}`}
+                            {`你正在 `}<span style={{color: 'yellow'}}>投注{mode===1?'反波胆':''}</span>{`: 比分为 ${name}`}
                         </div>
                         <div style={{padding:'12px 0',width:'100%'}}>
                             <FlexContainer style={{width:'100%'}}>
@@ -118,7 +120,8 @@ class PlaceBet extends React.Component {
                             </FlexContainer>
                             <FlexContainer style={{width:'100%',marginTop:6}}>
                                 {
-                                    [``,returnRate,`xxxx`].map((text,index)=>{
+                                    [this.state.inputValue,returnRate,
+                                        new BigNumber(this.state.inputValue).times(returnRate).times(1-serviceFee).toString()].map((text,index)=>{
                                         return <FlexContainer justify='center'
                                                               style={{fontSize:18,width:'33.33%',height:40}}
                                                               key={index}>
@@ -126,7 +129,7 @@ class PlaceBet extends React.Component {
                                                 index===0?
                                                     <input style={{width:'60px',height:30,
                                                         backgroundColor:'transparent',color:'#fff'}}
-                                                     value={this.state.inputValue}
+                                                     value={text}
                                                            onChange={(e)=>{
                                                          const {value=''}=e;
                                                     this.inputValueChange(value)

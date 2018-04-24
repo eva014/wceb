@@ -1,10 +1,11 @@
-import {web3} from "../web3/web3";
+import web3 from "../web3/web3";
 import {gameAbi, gameworldAbi} from "../web3/abi";
 import KToast from "../../common/KToast";
 import {KLocal_GetAccount_Fail} from "../local";
 
-export const gameWorldContractAddress = '0xd36c2cee95bbbe3fed2085240b541662e601e434';
+// export const gameWorldContractAddress = '0xd36c2cee95bbbe3fed2085240b541662e601e434';
 
+export const gameWorldContractAddress='';
 
 export const getGameWorldContract = () => {
     return new web3.eth.Contract(gameworldAbi, gameWorldContractAddress);
@@ -35,6 +36,10 @@ export const getAccount = async (index = 0) => {
     }
 };
 
+
+export const getAccountBalance=async (account)=>{
+    return await web3.eth.getBalance(account);
+}
 
 export const createMethodsCallOptions = async () => {
     try {

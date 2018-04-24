@@ -25,6 +25,10 @@ export const toManageGameList=()=>{
     basePush(`/manage/gamelist`)
 }
 
+export const toOrderDetail=(hash)=>{
+    basePush(`/orderdetail/${hash}`)
+}
+
 
 export const toSetUpGame=(matchId)=>{
     basePush(`manage/setupgame/${matchId}`)

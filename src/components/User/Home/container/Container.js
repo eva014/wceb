@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlexContainer} from "../../../../common/FlexContainer/index";
+import FlexContainer from "../../../../common/FlexContainer/index";
 import {hashHistory} from "react-router";
 
 export default class HomeContainer extends React.Component {
@@ -14,7 +14,7 @@ export default class HomeContainer extends React.Component {
         },
         {
             title: '比赛结果',
-            router: '',
+            router: '/matchresults',
         },
         {
             title: '平台规则',

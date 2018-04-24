@@ -2,10 +2,10 @@
  * Created by Kael on 2018/3/20.
  */
 import React from 'react'
-import {FlexContainer} from "../../../common/FlexContainer";
-import {web3} from "../../../util/web3/web3";
-import {getAccount} from "../../../util/contract/util";
+import FlexContainer from "../../../common/FlexContainer";
+import {getAccount, getAccountBalance} from "../../../util/contract/util";
 import {Icon} from "antd-mobile";
+import  Web3 from "web3";
 
 
 class Header extends React.Component {
@@ -22,9 +22,10 @@ class Header extends React.Component {
 
     getBalance= async () => {
         const account = await getAccount();
-        const balance = await web3.eth.getBalance(account);
+        const balance=await  getAccountBalance(account);
+        console.log(`balance`,balance);
         this.setState({
-            balance: web3.utils.fromWei(balance, 'ether')
+            balance: Web3.utils.fromWei(balance, 'ether')
         })
     };
 

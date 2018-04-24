@@ -1,9 +1,9 @@
 import React from 'react';
 import moment from 'moment'
-import {FlexContainer} from "../../../../common/FlexContainer/index";
+import FlexContainer from "../../../../common/FlexContainer/index";
 import {getMatchDetail} from "../../../../util/api/user";
 import KToast from "../../../../common/KToast";
-import Header from "./Header";
+import MatchHeader from "./MatchHeader";
 import BetCategories from "./BetCategories";
 
 export const renderTeam = (team) => {
@@ -38,6 +38,7 @@ export default class MatchDetailContainer extends React.Component {
 
     componentDidMount = () => {
         const {matchId} = this.props.params;
+        console.log(matchId)
         KToast.loading();
         getMatchDetail(matchId).then(result => {
             if (result.rc === 0) {
@@ -59,7 +60,7 @@ export default class MatchDetailContainer extends React.Component {
         }
         return (
             <div style={{color: '#fff'}}>
-                <Header match={match}/>
+                <MatchHeader match={match}/>
                 <BetCategories match={match}/>
             </div>
         )

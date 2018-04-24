@@ -2,7 +2,7 @@
  * Created by Kael on 2017/3/2.
  */
 import React from 'react'
-import {FlexContainer} from "../../FlexContainer";
+import FlexContainer from "../../FlexContainer";
 
 class Container extends React.Component {
 

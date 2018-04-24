@@ -1,4 +1,4 @@
-import {web3} from "../web3/web3";
+import web3 from "../web3/web3";
 import {gameAbi, gameworldAbi} from "../web3/abi";
 import {localStorageReadOneData, } from "../storage/LocalStorage";
 import {createMatch, createMatchBetItem} from "./mockdata";

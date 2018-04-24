@@ -3,7 +3,7 @@
  */
 import React from 'react'
 import moment from "moment";
-import {FlexContainer} from "../../../../common/FlexContainer";
+import FlexContainer from "../../../../common/FlexContainer";
 import Team from "./Team";
 
 
@@ -23,7 +23,7 @@ class Header extends React.Component {
                 <div style={{textAlign: 'center', margin: '0 20px'}}>
                     <div style={{fontSize: 28}}>VS</div>
                     <div style={{color: 'blue', border: '1px solid blue', borderRadius: 4}}>
-                        {moment(start).format('MM-DD HH:mm')}
+                        {moment(start*1000).format('MM-DD HH:mm')}
                     </div>
                 </div>
                 <Team team={dire}/>

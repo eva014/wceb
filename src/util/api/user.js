@@ -5,6 +5,15 @@ export const getGameListByUsers = (params) => {
     return Network.get('/match/list', params)
 };
 
+export const getGameHistory =async (params) => {
+    // const account=await getAccount();
+    return Network.get('/match/history', {
+        ...params,
+        // account
+    })
+};
+
+
 export const getGameListByManage= (params) => {
     return Network.get('/op/matches', params)
 };
@@ -20,6 +29,16 @@ export const getMatchBets=(matchId) => {
         matchId
     })
 };
+
+export const getOrderDetail=(transactionHash)=>{
+    return Network.get(`/match/order/${transactionHash}`).then(result=>{
+        if(result.rc===0){
+            const {data}=result;
+            return data;
+        }
+        return {}
+    })
+}
 
 export const getOrderList=async (params)=>{
     const account=await getAccount();

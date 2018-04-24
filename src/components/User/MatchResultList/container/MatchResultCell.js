@@ -5,12 +5,10 @@ import React from 'react'
 import FlexContainer from "../../../../common/FlexContainer/index";
 import moment from 'moment'
 import {MAIN_BACKGROUNDCOLOR, MAIN_BORDERCOLOR} from "../../../../util/color";
-import {Icon} from "antd-mobile";
 import {toMatchDetail} from "../../../../router";
-import {getGameState} from "../../../../util/contract/action";
 
 
-class MatchCell extends React.Component {
+class MatchResultCell extends React.Component {
     state = {
         address: '',
         match: null,
@@ -42,11 +40,9 @@ class MatchCell extends React.Component {
 
         console.log(111)
 
-        const {division, start, radiant, dire,state} = match;
+        const {division, start, radiant, dire,direScore,radiantScore
+        } = match;
         // console.log(this.props.rowID);
-        if(state===0){
-            return null
-        }
 
 
         return (
@@ -54,12 +50,6 @@ class MatchCell extends React.Component {
                 style={{
                     padding: '10px 20px', color: '#fff',
                     backgroundColor: MAIN_BACKGROUNDCOLOR, borderBottom: `1px solid ${MAIN_BORDERCOLOR}`
-                }}
-                onClick={() => {
-                    if (user) {
-                        const {matchId} = match;
-                        toMatchDetail(matchId)
-                    }
                 }}>
                 {
                     division
@@ -74,18 +64,18 @@ class MatchCell extends React.Component {
                         {moment(start*1000).format('MM-DD HH:mm')}
                     </div>
                 </div>
-                {
-                    user === true
-                    &&
-                    <div style={{marginLeft: 'auto'}}>
-                        <Icon type={'right'}/>
+                <div style={{marginLeft: 'auto'}}>
+                    <div>
+                        {`上半场:${direScore.firstHalf!==null?direScore.firstHalf:'-'} : ${radiantScore.firstHalf!==null?radiantScore.firstHalf:'-'}`}
                     </div>
-                }
-
+                    <div style={{marginTop: 4}}>
+                        {`全场:${direScore.fullTime!==null?direScore.fullTime:'-'} : ${radiantScore.fullTime!==null?radiantScore.fullTime:'-'}`}
+                    </div>
+                </div>
             </FlexContainer>
         )
     }
 }
 
 
-export default MatchCell
+export default MatchResultCell

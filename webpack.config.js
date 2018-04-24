@@ -26,7 +26,7 @@ const postcssOpts = {
 };
 
 module.exports = {
-    devtool: 'source-map', // or 'inline-source-map'
+    // devtool: 'source-map', // or 'inline-source-map'
     devServer: {
         disableHostCheck: true
     },
@@ -48,15 +48,15 @@ module.exports = {
     module: {
         rules: [
             {
-
                 test:  /\.(js|jsx)$/,
+                // include:[path.join(__dirname, 'node_modules/json-rpc-engine'),node_modules/eth-json-rpc-infura/,path.join(__dirname,'src/')],
                 exclude: /node_modules/,
                 loader: 'babel-loader',
                 options: {
                     plugins: [
                         'external-helpers', // why not work?
                         ["transform-runtime", {polyfill: false}],
-                        ["import", [{"style": "css", "libraryName": "antd-mobile"}]]
+                        ["import", [{"style": "css", "libraryName": "antd-mobile"}]],
                     ],
                     presets: ['es2015', 'stage-0', 'react']
                     // presets: [['es2015', { modules: false }], 'stage-0', 'react'] // tree-shaking
@@ -102,6 +102,6 @@ module.exports = {
         //     // __URLServer__:'"http://core-test.laobai.com"',
         // }),
         new ExtractTextPlugin({filename: '[name].css', allChunks: true}),
-        ...otherPlugins
+        // ...otherPlugins
     ]
 }

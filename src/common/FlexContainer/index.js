@@ -1,7 +1,7 @@
 import React from 'react'
 import './flexcontainer.less'
 
-class FlexContainer extends React.Component{
+export default class FlexContainer extends React.Component{
     render(){
 
         const {justify='',align='center',direction='',wrap='',style={},onClick=null,className=''}=this.props;
@@ -22,7 +22,7 @@ class FlexContainer extends React.Component{
     }
 }
 
-
-module.exports={
-    FlexContainer,
-};
+//
+// module.exports={
+//     FlexContainer,
+// };
